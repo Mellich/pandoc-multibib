@@ -50,7 +50,7 @@ local refs_div_with_properties
 -- Whether utils.citeproc() supports a 'quiet' argument
 -- (it doesn't yet, but perhaps it will, in which case this
 -- will use the appropriate pandoc version check)
-local supports_quiet_arg = false
+local supports_quiet_arg = true
 
 --- Run citeproc on a pandoc document
 local function citeproc(doc, quiet)
@@ -78,7 +78,6 @@ local function resolve_doc_citations (doc)
   for name, value in pairs(meta) do
     if name:match('^bibliography_') then
       table.insert(meta.bibliography, value)
-      end
     end
   end
   local refconf = meta.references
