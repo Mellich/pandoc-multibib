@@ -10,14 +10,13 @@ specified.
 [CI badge]: https://img.shields.io/github/actions/workflow/status/pandoc-ext/multibib/ci.yaml?logo=github&branch=main
 [CI workflow]: https://github.com/pandoc-ext/multibib/actions/workflows/ci.yaml
 
-The bibliographies must be defined in a map below the
-`bibliography` key in the document's metadata. E.g.
+The bibliographies must be defined starting with
+`bibliography_` as key followed by an identificator in the document's metadata. E.g.
 
 ```yaml
 ---
-bibliography:
-  main: main-bibliography.bib
-  software: software.bib
+bibliography_main: main-bibliography.bib
+bibliography_software: software.bib
 ---
 ```
 

@@ -74,13 +74,10 @@ local function resolve_doc_citations (doc)
   -- combine all bibliographies and references
   local meta = doc.meta
   local bibconf = meta.bibliography
-  meta.bibliography = pandoc.MetaList{}
-  if metatype(bibconf) == 'table' then
-    for _, value in pairs(bibconf) do
-      -- support list-valued items
-      if metatype(value) ~= 'List' then value = List{value} end
-      for _, val in ipairs(value) do
-        table.insert(meta.bibliography, stringify(val))
+  meta.bibliography = pandoc.MetaList { bibconf }
+  for name, value in pairs(meta) do
+    if name:match('^bibliography_') then
+      table.insert(meta.bibliography, value)
       end
     end
   end
@@ -165,7 +162,7 @@ end
 -- alphanumeric characters.
 local function create_topic_bibliography (div)
   local name = div.identifier:match('^refs[-_]?([-_%w]*)$')
-  local bibfile = name and (doc_meta.bibliography or {})[name]
+  local bibfile = name and doc_meta['bibliography_' .. name]
   if not bibfile then
     return nil
   end
